@@ -41,3 +41,19 @@ Install the traefik dashboard:
 $ kubectl apply -f ./traefik-dashboard/
 ```
 
+## Owncloud
+
+From now on, every services deployed can follow these config patterns : 3 files -> deployment.yaml (pod specs), service.yaml (exposed service), ingress.yaml (routing and naming)
+
+Replace the following var with your config : 
+- `%HOST_CONFIG_DIR%`
+- `%HOST_DATA_DIR%`
+- `%MARIADB_ROOT_PASSWORD%`
+- `%MARIADB_USERNAME%`
+- `%MARIADB_PASSWORD%`
+- `%MARIADB_DATABASE%`
+
+And apply files 
+```
+kubectl apply -f ./owncloud/
+```
