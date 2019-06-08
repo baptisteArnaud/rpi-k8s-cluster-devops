@@ -1,0 +1,18 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-ingress-controller
+  annotations: {}
+spec:
+  selector:
+    k8s-app: traefik-ingress-controller
+  ports:
+  - protocol: TCP
+    port: 80
+    name: http
+  - protocol: TCP
+    port: 443
+    name: https
+    nodePort: 32001
+  type: NodePort
