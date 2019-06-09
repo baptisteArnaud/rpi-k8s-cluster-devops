@@ -45,7 +45,7 @@ $ kubectl apply -f ./traefik-dashboard/
 
 From now on, every services deployed can follow these config patterns : 3 files -> deployment.yaml (pod specs), service.yaml (exposed service), ingress.yaml (routing and naming)
 
-Replace the following var with your config : 
+Replace the following var with your config in `owncloud/deployment.yaml`: 
 - `%HOST_CONFIG_DIR%`
 - `%HOST_DATA_DIR%`
 - `%MARIADB_ROOT_PASSWORD%`
