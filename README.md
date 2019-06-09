@@ -49,7 +49,7 @@ $ kubectl apply -f ./traefik-dashboard/
 ```
 ## Owncloud
 
-Replace the following var with your config : 
+Replace the following var with your config in `owncloud/deployment.yaml`: 
 - `%HOST_CONFIG_DIR%`
 - `%HOST_DATA_DIR%`
 - `%MARIADB_ROOT_PASSWORD%`
