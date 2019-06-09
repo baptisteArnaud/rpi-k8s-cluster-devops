@@ -1,0 +1,13 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: owncloud
+spec:
+  rules:
+    - host: cloud.example.com
+      http:
+        paths:
+          - backend:
+              serviceName: owncloud
+              servicePort: 80

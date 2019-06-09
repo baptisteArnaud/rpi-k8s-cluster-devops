@@ -5,9 +5,9 @@ You need at least a Raspberry Pi with Kubernetes installed. I personnally follow
 
 Create TLS certificate that we'll use for UI:
 ```
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ./tls.key -out ./tls.crt -subj "/CN=*.baptiste-arnaud.fr"
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ./tls.key -out ./tls.crt -subj "/CN=*.example.com"
 ```
-Replace `baptiste-arnaud.fr` by anything you want
+Replace `example.com` by anything you want
 
 # Get started
 ## Traefik Controller
@@ -27,6 +27,13 @@ Install the traefik controller:
 $ kubectl apply -f ./traefik-controller/
 ```
 
+---
+From now on, every services deployed can follow these config patterns : 3 files -> 
+- deployment.yaml (pod specs)
+- service.yaml (exposed service)
+- ingress.yaml (routing and naming)
+---
+
 ## Traefik Dashboard (optionnal)
 Generate new user / password in order to access dashboard :
 ```
@@ -40,4 +47,17 @@ Install the traefik dashboard:
 ```
 $ kubectl apply -f ./traefik-dashboard/
 ```
+## Owncloud
 
+Replace the following var with your config : 
+- `%HOST_CONFIG_DIR%`
+- `%HOST_DATA_DIR%`
+- `%MARIADB_ROOT_PASSWORD%`
+- `%MARIADB_USERNAME%`
+- `%MARIADB_PASSWORD%`
+- `%MARIADB_DATABASE%`
+
+And apply files 
+```
+kubectl apply -f ./owncloud/
+```
