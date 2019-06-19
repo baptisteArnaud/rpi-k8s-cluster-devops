@@ -1,0 +1,16 @@
+hostname: "cloud.example.com"
+
+persistData: "true"
+nodeLabel: "disktype: hdd"
+volumes:
+  configDir: "/path/to/config/dir"
+  dataDir: "/path/to/data/dir"
+  appsDir: "/path/to/apps/dir"
+  themesDir: "/path/to/themes/dir"
+  databaseDir: "/path/to/database/dir"
+
+mariaDb:
+  rootPassword: "mariadbrootpasswd"
+  username: "mariadbusername"
+  password: "mariadbpasswd"
+  databaseName: "databasename"

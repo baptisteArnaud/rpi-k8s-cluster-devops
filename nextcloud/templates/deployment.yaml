@@ -1,0 +1,99 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      {{ if .Values.nodeLabel }}
+      nodeSelector:
+        {{ .Values.nodeLabel }}
+      {{ end }}
+      containers:
+      - name: nextcloud
+        image: nextcloud:latest
+        ports:
+        - containerPort: 80
+      {{ if eq .Values.persistData "true"}}
+        volumeMounts:
+        - name: config
+          mountPath: /var/www/html/config
+        - name: data
+          mountPath: /var/www/html/data
+        - name: apps
+          mountPath: /var/www/html/custom_apps
+        - name: themes
+          mountPath: /var/www/html/themes
+      volumes:
+      - name: config
+        hostPath:
+          path: {{ .Values.volumes.configDir }}
+          type: Directory
+      - name: data
+        hostPath:
+          path: {{ .Values.volumes.dataDir }}
+          type: Directory
+      - name: apps
+        hostPath:
+          path: {{ .Values.volumes.appsDir }}
+          type: Directory
+      - name: themes
+        hostPath:
+          path: {{ .Values.volumes.themesDir }}
+          type: Directory
+      {{ end }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      {{ if .Values.nodeLabel }}
+      nodeSelector:
+        {{ .Values.nodeLabel }}
+      {{ end }}
+      containers:
+      - name: mariadb
+        image: webhippie/mariadb:latest
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: {{ .Values.mariaDb.rootPassword }}
+        - name: MARIADB_USERNAME
+          value: {{ .Values.mariaDb.username }}
+        - name: MARIADB_PASSWORD
+          value: {{ .Values.mariaDb.password }}
+        - name: MARIADB_DATABASE
+          value: {{ .Values.mariaDb.databaseName }}
+        ports:
+        - name: mysql
+          containerPort: 3306
+      {{ if eq .Values.persistData "true"}}
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql
+        hostPath:
+          path: {{ .Values.volumes.databaseDir }}
+          type: Directory
+      {{ end }}
