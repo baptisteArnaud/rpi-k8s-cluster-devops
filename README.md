@@ -27,27 +27,9 @@ Install the traefik controller:
 $ kubectl apply -f ./traefik-controller/
 ```
 
----
-From now on, every services deployed can follow these config patterns : 3 files -> 
-- deployment.yaml (pod specs)
-- service.yaml (exposed service)
-- ingress.yaml (routing and naming)
----
-
-## Traefik Dashboard (optionnal)
-Generate new user / password in order to access dashboard :
-```
-htpasswd -nb $new_username $new_password_you_choose
-```
-And paste the output into `traefik-controller/configmap.yaml` in this array `users = ["$USERNAME:$PASSWORD"]`
-
-Also, put your domain name into `traefik-dashboard/service.yaml`.
-
-Install the traefik dashboard:
-```
-$ kubectl apply -f ./traefik-dashboard/
-```
 ## Owncloud
+
+From now on, every services deployed can follow these config patterns : 3 files -> deployment.yaml (pod specs), service.yaml (exposed service), ingress.yaml (routing and naming)
 
 Replace the following var with your config in `owncloud/deployment.yaml`: 
 - `%HOST_CONFIG_DIR%`
