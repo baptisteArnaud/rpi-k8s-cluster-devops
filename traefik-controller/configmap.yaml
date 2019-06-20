@@ -18,7 +18,7 @@ data:
       [entryPoints.traefik]
         address = ":8080"
         [entryPoints.traefik.auth.basic]
-        users = ["$USERNAME:$PASSWORD"]
+        users = ["$USERNAME:$SALTED_PASSWORD"]
     [kubernetes]
       [kubernetes.ingressEndpoint]
         publishedService = "traefik/traefik-ingress-controller"

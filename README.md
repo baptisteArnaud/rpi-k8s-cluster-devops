@@ -27,37 +27,12 @@ Install the traefik controller:
 $ kubectl apply -f ./traefik-controller/
 ```
 
----
-From now on, every services deployed can follow these config patterns : 3 files -> 
-- deployment.yaml (pod specs)
-- service.yaml (exposed service)
-- ingress.yaml (routing and naming)
----
+From now on, every services deployed can follow these config patterns : 3 files -> deployment.yaml (pod specs), service.yaml (exposed service), ingress.yaml (routing and naming).
 
-## Traefik Dashboard (optionnal)
-Generate new user / password in order to access dashboard :
-```
-htpasswd -nb $new_username $new_password_you_choose
-```
-And paste the output into `traefik-controller/configmap.yaml` in this array `users = ["$USERNAME:$PASSWORD"]`
+We'll use Helm in order to variabalize our config and handle services as packages. See [Helm Quickstart Guide](https://helm.sh/docs/using_helm/#quickstart)
 
-Also, put your domain name into `traefik-dashboard/service.yaml`.
-
-Install the traefik dashboard:
+## Nextcloud
+You need to create your own config files with values specific to your needs. See every possible [values](./nextcloud/README.md)
 ```
-$ kubectl apply -f ./traefik-dashboard/
-```
-## Owncloud
-
-Replace the following var with your config in `owncloud/deployment.yaml`: 
-- `%HOST_CONFIG_DIR%`
-- `%HOST_DATA_DIR%`
-- `%MARIADB_ROOT_PASSWORD%`
-- `%MARIADB_USERNAME%`
-- `%MARIADB_PASSWORD%`
-- `%MARIADB_DATABASE%`
-
-And apply files 
-```
-kubectl apply -f ./owncloud/
+helm install --name nextcloud -f /path/to/custom/values.yaml ./nextcloud
 ```
