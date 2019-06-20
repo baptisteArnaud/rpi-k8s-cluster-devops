@@ -26,13 +26,16 @@ Install the traefik controller:
 ```
 $ kubectl apply -f ./traefik-controller/
 ```
+---
 
 From now on, every services deployed can follow these config patterns : 3 files -> deployment.yaml (pod specs), service.yaml (exposed service), ingress.yaml (routing and naming).
 
 We'll use Helm in order to variabalize our config and handle services as packages. See [Helm Quickstart Guide](https://helm.sh/docs/using_helm/#quickstart)
 
+---
+
 ## Nextcloud
-You need to create your own config files with values specific to your needs. See every possible [values](./nextcloud/README.md)
+You need to create your own config file with values specific to your needs. Every possible values are [here](./nextcloud/README.md).
 ```
 helm install --name nextcloud -f /path/to/custom/values.yaml ./nextcloud
 ```
