@@ -1,0 +1,6 @@
+hostname: "plex.example.com"
+nodeLabel: "disktype: hdd"
+volumes:
+  configDir: "/path/to/config/dir"
+  dataDir: "/path/to/data/dir"
+  transcodeDir: "/path/to/transcode/dir"
