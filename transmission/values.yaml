@@ -1,0 +1,6 @@
+hostname: "transmission.example.com"
+nodeLabel: "disktype: hdd"
+volumes:
+  configDir: "/path/to/config/dir"
+  downloadsDir: "/path/to/data/dir"
+  watchDir: "/path/to/transcode/dir"
