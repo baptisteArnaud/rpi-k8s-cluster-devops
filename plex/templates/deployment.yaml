@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  labels:
+    app: plex
+spec:
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      {{ if .Values.nodeLabel }}
+      nodeSelector:
+        {{ .Values.nodeLabel }}
+      {{ end }}
+      containers:
+      - name: plex
+        image: linuxserver/plex:arm32v7-latest
+        env:
+        - name: VERSION
+          value: docker
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        ports:
+        - containerPort: 32400
+          protocol: UDP
+        - containerPort: 32400
+          protocol: TCP
+        - containerPort: 32469
+          protocol: TCP
+        - containerPort: 32469
+          protocol: UDP
+        - containerPort: 5353
+          protocol: UDP
+        - containerPort: 1900
+          protocol: UDP
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: transcode
+          mountPath: /transcode
+        - name: data
+          mountPath: /data
+      volumes:
+      - name: config
+        hostPath:
+          path: {{ .Values.volumes.configDir }}
+          type: Directory
+      - name: data
+        hostPath:
+          path: {{ .Values.volumes.dataDir }}
+          type: Directory
+      - name: transcode
+        hostPath:
+          path: {{ .Values.volumes.transcodeDir }}
+          type: Directory
