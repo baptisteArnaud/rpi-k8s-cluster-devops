@@ -47,3 +47,10 @@ You need to create your own config file with values specific to your needs. Ever
 helm install --name plex -f /path/to/custom/values.yaml ./plex
 ```
 To claim server for the first time, you need to be on the same subnet as explained [here](https://github.com/linuxserver/docker-plex/issues/110). This is why I enabled NodePort for the plex service by default in order to point to `http://MASTER_NODE_IP:32400/web` for the first install. Then you can point to the configurated hostname.
+
+## Transmission
+You need to create your own config file with values specific to your needs. Every possible values are [here](./transmission/README.md).
+
+```
+helm install --name plex -f /path/to/custom/values.yaml ./plex
+```

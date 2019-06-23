@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+  labels:
+    app: transmission
+spec:
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      {{ if .Values.nodeLabel }}
+      nodeSelector:
+        {{ .Values.nodeLabel }}
+      {{ end }}
+      containers:
+      - name: transmission
+        image: linuxserver/transmission:arm32v7-latest
+        env:
+        - name: TZ
+          value: "Europe/Paris"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        ports:
+        - containerPort: 9091
+          protocol: TCP
+        - containerPort: 51413
+          protocol: TCP
+        - containerPort: 51413
+          protocol: UDP
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: downloads
+          mountPath: /downloads
+        - name: watch
+          mountPath: /watch
+      volumes:
+      - name: config
+        hostPath:
+          path: {{ .Values.volumes.configDir }}
+          type: Directory
+      - name: downloads
+        hostPath:
+          path: {{ .Values.volumes.downloadsDir }}
+          type: Directory
+      - name: watch
+        hostPath:
+          path: {{ .Values.volumes.watchDir }}
+          type: Directory
